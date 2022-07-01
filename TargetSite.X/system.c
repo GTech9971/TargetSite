@@ -91,6 +91,11 @@ void SYSTEM_Initialize( SYSTEM_STATE state )
                 OSCCON = 0xFC;  //HFINTOSC @ 16MHz, 3X PLL, PLL enabled
                 ACTCON = 0x90;  //Active clock tuning enabled for USB
             #endif
+                ANSELA = 0x00;
+                TRISA = 0x20;
+                LATA = 0x00;
+                WPUA = 0x20;
+                OPTION_REGbits.nWPUEN = 0;
             break;
             
         case SYSTEM_STATE_USB_SUSPEND:
