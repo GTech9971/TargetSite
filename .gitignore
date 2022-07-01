@@ -1,0 +1,8 @@
+TargetSite.X/*
+!TargetSite.X/*.c
+!TargetSite.X/*.h
+!TargetSite.X/Makefile
+!TargetSite.X/nbproject
+TargetSite.X/nbproject/*
+!TargetSite.X/nbproject/configurations.xml
+!TargetSite.X/nbproject/project.xml
