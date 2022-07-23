@@ -159,7 +159,7 @@ const USB_DEVICE_DESCRIPTOR device_dsc=
     0x00,                   // Protocol code
     USB_EP0_BUFF_SIZE,          // Max packet size for EP0, see usb_config.h
     0x04D8,                 // Vendor ID
-    0x003F,                 // Product ID: Alcohol Drive
+    0x5453,                 // Product ID: TargetSite
     0x0100,                 // Device release number in BCD format
     0x01,                   // Manufacturer string index
     0x02,                   // Product string index
@@ -229,10 +229,10 @@ sizeof(sd001),USB_DESCRIPTOR_STRING,
 }};
 
 //Product string descriptor
-const struct{uint8_t bLength;uint8_t bDscType;uint16_t string[20];}sd002={
+const struct{uint8_t bLength;uint8_t bDscType;uint16_t string[17];}sd002={
 sizeof(sd002),USB_DESCRIPTOR_STRING,
-{'A','l','c','o','h','o','l',' ',
-'D','r','i','v','e',' ','A','L','C','0','0','1'
+{'T','a','r','g','e','t','S','i','t','e',' ',
+'T','R','S','0','0','1'
 }};
 
 //Class specific descriptor - HID 

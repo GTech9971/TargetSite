@@ -25,12 +25,9 @@ please contact mla_licensing@microchip.com
 
 #include "app_device_custom_hid.h"
 
-bool flg;
-
 MAIN_RETURN main(void)
 {
     SYSTEM_Initialize(SYSTEM_STATE_USB_START);
-    flg = false;
     
     USBDeviceInit();
     USBDeviceAttach();
@@ -38,14 +35,6 @@ MAIN_RETURN main(void)
     while(1)
     {
         SYSTEM_Tasks();
-        if(RA5 == 0){
-            flg = true;
-        }
-        
-        if(flg){
-            LATA = 0x10;
-        }
-
         //Application specific tasks
         APP_DeviceCustomHIDTasks();
 
@@ -55,4 +44,3 @@ MAIN_RETURN main(void)
 /*******************************************************************************
  End of File
 */
-

@@ -6,7 +6,9 @@
 
 #include "system.h"
 
+#include "target_site_check.h"
 
+target_model target_list[4];
 
 /** VARIABLES ******************************************************/
 /* Some processors have a limited range of RAM addresses where the USB module
@@ -73,8 +75,59 @@ void APP_DeviceCustomHIDTasks()
     {   
         switch(ReceivedDataBuffer[0])
         {
-            //結果送信
-            //USBInHandle = HIDTxPacket(CUSTOM_DEVICE_HID_EP, (uint8_t*)&ToSendDataBuffer[0],64);            
+            //シューティング開始
+            case START_SHOOTING:{                
+                //シューティング開始
+                start_shooting(target_list);
+                
+                ToSendDataBuffer[0] = START_SHOOTING;
+                //結果送信
+                USBInHandle = HIDTxPacket(CUSTOM_DEVICE_HID_EP, (uint8_t*)&ToSendDataBuffer[0],64);            
+                break;
+            }
+            //シューティング終了
+            case STOP_SHOOTING:{
+                //シューティング終了
+                stop_shooting(target_list);
+                ToSendDataBuffer[0] = STOP_SHOOTING;
+                //結果送信
+                USBInHandle = HIDTxPacket(CUSTOM_DEVICE_HID_EP, (uint8_t*)&ToSendDataBuffer[0],64);            
+                break;
+            }
+            //ターゲット情報取得
+            case GET_TARGET_INFO:{
+                //1byte目 コマンド
+                ToSendDataBuffer[0] = GET_TARGET_INFO;
+                //2byte目 ターゲット数
+                ToSendDataBuffer[1] = 4;
+                //3byte目 ターゲットデバイスID RA3,RA4,RA5,RB7
+                ToSendDataBuffer[2] = 0xB8;
+                //結果送信
+                USBInHandle = HIDTxPacket(CUSTOM_DEVICE_HID_EP, (uint8_t*)&ToSendDataBuffer[0],64);            
+                break;
+            }
+            //ヒット情報取得
+            case GET_HIT_INFO:{
+                check_target(target_list);
+                //1byte目 コマンド
+                ToSendDataBuffer[0] = GET_HIT_INFO;
+                //2byte目 ターゲット数
+                ToSendDataBuffer[1] = 4;
+                //3byte目 ヒットしたターゲットはビットを立てる
+                uint8_t hid_data = 0x00;                
+                //デバイスの数だけループし、ビットを立てる
+                for(uint8_t i = 0; i < 4; i++){
+                    if(target_list[i].is_hit){
+                        hid_data |= target_list[i].device_id;
+                    }
+                }
+                ToSendDataBuffer[2] = hid_data;
+                
+                //結果送信
+                USBInHandle = HIDTxPacket(CUSTOM_DEVICE_HID_EP, (uint8_t*)&ToSendDataBuffer[0],64);            
+                break;
+            }
+            
         }
         
         

@@ -92,10 +92,24 @@ void SYSTEM_Initialize( SYSTEM_STATE state )
                 ACTCON = 0x90;  //Active clock tuning enabled for USB
             #endif
                 ANSELA = 0x00;
-                TRISA = 0x20;
+                ANSELB = 0x00;
+                ANSELC = 0x00;
+                // RA3, RA4, RA5
+                TRISA = 0x38;
+                //RB7
+                TRISB = 0x80;
+                //RC0~7 すべて出力
+                TRISC = 0x00;
+                
                 LATA = 0x00;
-                WPUA = 0x20;
+                LATB = 0x00;
+                LATC = 0x00;
+                
                 OPTION_REGbits.nWPUEN = 0;
+                // RA3, RA4, RA5
+                WPUA = 0x38;
+                //RB7                             
+                WPUB = 0x80;
             break;
             
         case SYSTEM_STATE_USB_SUSPEND:

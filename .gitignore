@@ -6,3 +6,6 @@ TargetSite.X/*
 TargetSite.X/nbproject/*
 !TargetSite.X/nbproject/configurations.xml
 !TargetSite.X/nbproject/project.xml
+
+TargetSite/TargetSite-backups/
+TargetSite/fp-info-cache
