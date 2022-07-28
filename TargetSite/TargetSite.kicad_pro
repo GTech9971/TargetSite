@@ -409,7 +409,7 @@
       "idf": "",
       "netlist": "",
       "specctra_dsn": "",
-      "step": "",
+      "step": "TargetSite.step",
       "vrml": ""
     },
     "page_layout_descr_file": ""
